@@ -5,7 +5,7 @@ CREATE DATABASE fitness;
 
 CREATE TABLE locations(
     id SERIAL PRIMARY KEY,
-    yelpId VARCHAR,
+    yelpId VARCHAR UNIQUE,
     img_url VARCHAR,
     url VARCHAR,
     rating INTEGER,

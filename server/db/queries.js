@@ -41,7 +41,7 @@ getAPI = (url) =>{
     })
 }
 
-getFitnessLocations = (req, res, next) =>{
+allFitnessLocations = (req, res, next) =>{
     db.any('SELECT * FROM locations')
     .then(data=>{
         res.status(200).json({
@@ -58,7 +58,26 @@ getFitnessLocations = (req, res, next) =>{
     })
 }
 
-getAPI('https://api.yelp.com/v3/businesses/search?location=nyc&categories=fitness')
+selectFitnessLocation = (req, res, next) =>{
+    let id = req.params.id
+    db.any('SELECT * FROM locations WHERE yelpId =$1',[id])
+    .then(data=>{
+        res.status(200).json({
+            status:'success',
+            data:data,
+            message:'fitness location found'
+        })
+    })
+    .catch(err=>{
+        res.status(500).json({
+            status:'failed',
+            message:err
+        })
+    })
+}
+
+getAPI('https://api.yelp.com/v3/businesses/search?location=nyc&categories=fitness');
 module.exports = {
-    getFitnessLocations
+    allFitnessLocations,
+    selectFitnessLocation
 }

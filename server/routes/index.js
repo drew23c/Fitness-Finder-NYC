@@ -7,6 +7,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/locations', db.getFitnessLocations);
+router.get('/locations', db.allFitnessLocations);
+router.get('/locations/:id', db.selectFitnessLocation);
 
 module.exports = router;
