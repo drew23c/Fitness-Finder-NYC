@@ -1,16 +1,14 @@
 const yelp = require('../secret/yelp');
 const db = require('./index');
 const axios = require('axios');
+const options = {
+    headers:
+    { 'content-type': 'application/json',
+      authorization: 'Bearer ' + yelp.key },
+}
 
 getAPI = (url) =>{
-
-    const fitnessLocations = {
-        headers:
-        { 'content-type': 'application/json',
-          authorization: 'Bearer ' + yelp.key },
-    }
-    
-    axios.get(url, fitnessLocations)
+    axios.get(url, options)
     .then(res=>{
         let businesses = res.data.businesses
         // console.log(businesses)
@@ -77,14 +75,8 @@ selectFitnessLocation = (req, res, next) =>{
 }
 
 getReviews = (req, res, next) =>{
-
     let id = req.params.id
-    const fitnessReviews = {
-        headers:
-        { 'content-type': 'application/json',
-          authorization: 'Bearer ' + yelp.key },
-    }
-    axios.get('https://api.yelp.com/v3/businesses/' + id + '/reviews',fitnessReviews)
+    axios.get('https://api.yelp.com/v3/businesses/' + id + '/reviews', options)
     .then(data =>{
         res.status(200).json({
             status: 'success',
