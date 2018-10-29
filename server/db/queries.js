@@ -85,14 +85,35 @@ getReviews = (req, res, next) =>{
         })
     })
     .catch(err=>{
-        console.log(err)
+        res.status(500).json({
+            status: 'failed',
+            message: err
+        })
     })
+}
 
+getDetails = (req, res, next) =>{
+    let id = req.params.id;
+    axios.get('https://api.yelp.com/v3/businesses/' + id, options)
+    .then(data=>{
+        res.status(200).json({
+            status: 'success',
+            data: data.data,
+            message: 'fitness details are loaded'
+        })
+    })
+    .catch(err=>{
+        res.status(500).json({
+            status: 'failed',
+            message: err
+        })
+    })
 }
 
 getAPI('https://api.yelp.com/v3/businesses/search?location=nyc&categories=fitness');
 module.exports = {
     allFitnessLocations,
     selectFitnessLocation,
-    getReviews
+    getReviews,
+    getDetails
 }

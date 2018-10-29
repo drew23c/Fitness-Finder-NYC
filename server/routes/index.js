@@ -10,5 +10,6 @@ router.get('/', function(req, res, next) {
 router.get('/locations', db.allFitnessLocations);
 router.get('/locations/:id', db.selectFitnessLocation);
 router.get('/:id/reviews', db.getReviews);
+router.get('/:id/details', db.getDetails);
 
 module.exports = router;
