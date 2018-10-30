@@ -6,10 +6,12 @@ CREATE DATABASE fitness;
 CREATE TABLE locations(
     id SERIAL PRIMARY KEY,
     yelpId VARCHAR UNIQUE,
-    img_url VARCHAR UNIQUE,
-    url VARCHAR UNIQUE,
+    name VARCHAR,
+    alias VARCHAR,
+    img_url VARCHAR,
+    url VARCHAR,
     rating INTEGER,
-    coord VARCHAR UNIQUE,
-    location VARCHAR UNIQUE,
-    display_phone VARCHAR UNIQUE
+    coord VARCHAR,
+    location VARCHAR,
+    display_phone VARCHAR
 );
