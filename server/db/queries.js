@@ -11,7 +11,7 @@ getAPI = (url) =>{
     axios.get(url, options)
     .then(res=>{
         let businesses = res.data.businesses
-        console.log(businesses)
+        // console.log(businesses)
         
 
         for(let i in businesses){
@@ -22,10 +22,10 @@ getAPI = (url) =>{
             let url = businesses[i].url;
             let rating = businesses[i].rating;
             let coord = businesses[i].coordinates;
-            let location = businesses[i].location;
+            let location = businesses[i].location.display_address[0];
             let phone = businesses[i].display_phone;
 
-            console.log(name)
+            console.log(location)
 
             db.any('INSERT INTO locations (yelpId, name, alias, img_url, url, rating, coord, location, display_phone) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)',
             [id, name, alias, img_url, url, rating, coord, location, phone])
