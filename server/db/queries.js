@@ -22,13 +22,13 @@ getAPI = (url) =>{
             let url = businesses[i].url;
             let rating = businesses[i].rating;
             let coord = businesses[i].coordinates;
-            let location = businesses[i].location.display_address[0];
+            let address1 = businesses[i].location.display_address[0]
+            let address2 = businesses[i].location.display_address[1]
+            let address3 = businesses[i].location.display_address[2]
             let phone = businesses[i].display_phone;
 
-            console.log(location)
-
-            db.any('INSERT INTO locations (yelpId, name, alias, img_url, url, rating, coord, location, display_phone) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)',
-            [id, name, alias, img_url, url, rating, coord, location, phone])
+            db.any('INSERT INTO locations (yelpId, name, alias, img_url, url, rating, coord, address1, address2, address3, display_phone) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)',
+            [id, name, alias, img_url, url, rating, coord, address1, address2, address3, phone])
             .then(()=>{
             })
             .catch(err=>{

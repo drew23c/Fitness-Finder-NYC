@@ -12,6 +12,8 @@ CREATE TABLE locations(
     url VARCHAR,
     rating INTEGER,
     coord VARCHAR,
-    location VARCHAR,
+    address1 VARCHAR,
+    address2 VARCHAR,
+    address3 VARCHAR,
     display_phone VARCHAR
 );
