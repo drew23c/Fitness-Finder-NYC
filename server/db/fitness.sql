@@ -10,10 +10,24 @@ CREATE TABLE locations(
     alias VARCHAR,
     img_url VARCHAR,
     url VARCHAR,
-    rating INTEGER,
-    coord VARCHAR,
+    rating FLOAT,
+    latitude FLOAT,
+    longitude FLOAT,
     address1 VARCHAR,
     address2 VARCHAR,
     address3 VARCHAR,
     display_phone VARCHAR
+);
+
+CREATE TABLE reviews(
+    id SERIAL PRIMARY KEY,
+    yelp_id VARCHAR REFERENCES locations(yelpId),
+    url VARCHAR,
+    text VARCHAR,
+    rating INTEGER,
+    time VARCHAR,
+    user_id VARCHAR,
+    profile_url VARCHAR,
+    image_url VARCHAR,
+    name VARCHAR
 );
