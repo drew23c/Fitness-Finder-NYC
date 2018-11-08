@@ -6,15 +6,11 @@ const AllReviews = ({reviews}) =>{
         <div className="reviews">
             <h1>Reviews</h1>
             {reviews.map(r=><ul>
-                <li key={r.review_id}>
+                <li key={r.id}>
                 <Link to={`/reviews/${r.yelp_id}`}>
                     <img src={r.image_url} /><br/>
                 </Link>
-                <h2>{r.rating}</h2><br/>
-                {/* <p>{r.text}</p>
-                <p>{r.time_created}</p>
-                <a href={r.profile_url} target="_blank">{r.user_name}</a> */}
-
+                <h2>Rating: {r.rating}</h2><br/>
                 </li>
             </ul>)}
         </div>

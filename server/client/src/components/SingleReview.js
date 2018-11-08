@@ -24,6 +24,7 @@ class SingleReview extends Component{
         return(
             <div className="singleReview">
                 <h2>{singleReview.user_name}</h2>
+                <h2>{singleReview.name}</h2>
                 <p>{singleReview.text}</p>
                 <p>{singleReview.time_created}</p>
                 <a href={singleReview.profile_url} target="_blank">Profile</a><br/><br/>

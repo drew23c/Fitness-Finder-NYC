@@ -23,6 +23,7 @@ CREATE TABLE locations(
 CREATE TABLE reviews(
     id SERIAL PRIMARY KEY,
     yelp_id VARCHAR,
+    name VARCHAR,
     review_id VARCHAR,
     url VARCHAR,
     text VARCHAR,
