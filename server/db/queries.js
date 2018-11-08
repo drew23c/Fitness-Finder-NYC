@@ -7,15 +7,51 @@ const options = {
       authorization: 'Bearer ' + yelp.key },
 }
 
-getAPI = async (url) =>{
-    let data = await axios.get(url, options)
+getAPI = (url) =>{
+    axios.get(url, options)
     .then(res=>{
         let businesses = res.data.businesses
-        // console.log(businesses)
-        
+
+        let arr = [];
+        for(let j = 0; j < businesses.length; j ++){
+            arr.push(businesses[j].id)
+        }
+
+        for(let k = 0; k < 4; k++){
+            axios.get('https://api.yelp.com/v3/businesses/' + arr[k] + '/reviews', options)
+            .then(res=>{
+                // console.log(res.data.reviews)
+                let reviews = res.data.reviews;
+                let yelp_id = arr[k];
+                let review_id = reviews[k].id;
+                let url = reviews[k].url;
+                let text = reviews[k].text;
+                let rating = reviews[k].rating;
+                let time_created = reviews[k].time_created;
+                let user_id = reviews[k].user.id;
+                let profile_url = reviews[k].user.profile_url;
+                let image_url = reviews[k].user.image_url;
+                let user_name = reviews[k].user.name;
+
+                db.any('INSERT INTO reviews (yelp_id, review_id, url, text, rating, time_created, user_id, profile_url, image_url, user_name) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)',
+                [yelp_id, review_id, url, text, rating, time_created, user_id, profile_url, image_url, user_name])
+                .then(()=>{
+                })
+                .catch(err=>{
+                    console.log(err)
+                })
+
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+        }
+
+
+
 
         for(let i in businesses){
-            let id = businesses[i].id;
+            let yelp_id = businesses[i].id;
             let name = businesses[i].name;
             let alias = businesses[i].alias;
             let img_url = businesses[i].image_url;
@@ -28,22 +64,48 @@ getAPI = async (url) =>{
             let address3 = businesses[i].location.display_address[2]
             let phone = businesses[i].display_phone;
 
-            db.any('INSERT INTO locations (yelpId, name, alias, img_url, url, rating, latitude, longitude, address1, address2, address3, display_phone) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)',
-            [id, name, alias, img_url, url, rating, latitude, longitude, address1, address2, address3, phone])
+            db.any('INSERT INTO locations (yelp_id, name, alias, img_url, url, rating, latitude, longitude, address1, address2, address3, display_phone) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)',
+            [yelp_id, name, alias, img_url, url, rating, latitude, longitude, address1, address2, address3, phone])
             .then(()=>{
             })
-            .catch(err=>{
-                res.status(500).json({
-                    status:'failed',
-                    message:err
-                })
-            })
-        }
+        }    
+    })
+}
+
+
+getAllReviews = async (req, res, next) =>{
+    db.any('SELECT * FROM reviews')
+    .then(data=>{
+        res.status(200).json({
+            status:'success',
+            data:data,
+            message:'All reviews are loaded'
+        })
     })
     .catch(err=>{
-        console.log(err)
+        res.status(500).json({
+            status:'failed',
+            message:err
+        })
     })
-    return data;
+}
+
+getReview = (req, res, next) =>{
+    let yelp_id = req.params.id;
+    db.any('SELECT * FROM reviews WHERE yelp_id=${yelp_id}', {yelp_id:yelp_id})
+    .then(data=>{
+        res.status(200).json({
+            status:'success',
+            data:data,
+            message:'review(s) for a gym'
+        })
+    })
+    .catch(err=>{
+        res.status(500).json({
+            status:'failed',
+            message:err
+        })
+    })
 }
 
 allFitnessLocations = async (req, res, next) =>{
@@ -65,10 +127,8 @@ allFitnessLocations = async (req, res, next) =>{
 }
 
 selectFitnessLocation = async (req, res, next) =>{
-    let id = req.params.id
-
-    console.log(req.query)
-    let singleLocation = await db.any('SELECT * FROM locations WHERE id =${id}',{id:id})
+    let yelp_id = req.params.id
+    let singleLocation = await db.any('SELECT * FROM locations WHERE yelp_id =${yelp_id}',{yelp_id:yelp_id})
     .then(data=>{
         res.status(200).json({
             status:'success',
@@ -83,25 +143,6 @@ selectFitnessLocation = async (req, res, next) =>{
         })
     })
     return singleLocation;
-}
-
-getReviews = async (req, res, next) =>{
-    let id = req.params.id
-    let reviews = await axios.get('https://api.yelp.com/v3/businesses/' + id + '/reviews', options)
-    .then(data =>{
-        res.status(200).json({
-            status: 'success',
-            data: data.data,
-            message: 'reviews are loaded'
-        })
-    })
-    .catch(err=>{
-        res.status(500).json({
-            status: 'failed',
-            message: err
-        })
-    })
-    return reviews;
 }
 
 getDetails = async (req, res, next) =>{
@@ -122,11 +163,11 @@ getDetails = async (req, res, next) =>{
     })
     return details;
 }
-
 getAPI('https://api.yelp.com/v3/businesses/search?location=nyc&categories=fitness');
 module.exports = {
     allFitnessLocations,
     selectFitnessLocation,
-    getReviews,
+    getAllReviews,
+    getReview,
     getDetails
 }

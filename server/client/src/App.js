@@ -4,6 +4,7 @@ import './App.css';
 import {Link, Route, Switch} from 'react-router-dom';
 import Home from './components/Home';
 import Fitness from './components/Fitness';
+import Reviews from './components/Reviews';
 
 class App extends Component {
   render() {
@@ -11,11 +12,13 @@ class App extends Component {
       <div className="App">
         <nav>
           <Link to="/">Home</Link>{" "}
-          <Link to="/fitness">Fitness</Link>
+          <Link to="/locations">Fitness</Link>{" "}
+          <Link to="/reviews">Reviews</Link>
         </nav>
         <Switch>
           <Route exact path = "/" component={Home} />
-          <Route path = "/fitness" component={Fitness} />
+          <Route path = "/locations" component={Fitness} />
+          <Route path = "/reviews" component={Reviews} />
         </Switch>
       </div>
     );

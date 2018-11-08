@@ -5,7 +5,7 @@ CREATE DATABASE fitness;
 
 CREATE TABLE locations(
     id SERIAL PRIMARY KEY,
-    yelpId VARCHAR UNIQUE,
+    yelp_id VARCHAR UNIQUE,
     name VARCHAR,
     alias VARCHAR,
     img_url VARCHAR,
@@ -16,18 +16,20 @@ CREATE TABLE locations(
     address1 VARCHAR,
     address2 VARCHAR,
     address3 VARCHAR,
+    review_id VARCHAR UNIQUE,
     display_phone VARCHAR
 );
 
 CREATE TABLE reviews(
     id SERIAL PRIMARY KEY,
-    yelp_id VARCHAR REFERENCES locations(yelpId),
+    yelp_id VARCHAR,
+    review_id VARCHAR,
     url VARCHAR,
     text VARCHAR,
-    rating INTEGER,
-    time VARCHAR,
+    rating FLOAT,
+    time_created VARCHAR,
     user_id VARCHAR,
     profile_url VARCHAR,
     image_url VARCHAR,
-    name VARCHAR
+    user_name VARCHAR
 );

@@ -5,12 +5,10 @@ import FitnessLocations from './FitnessLocations';
 import FitnessInfo from './FitnessInfo';
 
 class Fitness extends Component{
-    constructor(props){
-        super(props)
+    constructor(){
+        super()
         this.state={
-            locations:[],
-            location:[],
-            details:[]
+            locations:[]
         }
     }
 
@@ -23,21 +21,6 @@ class Fitness extends Component{
         })
     }
 
-    handleDetails = () =>{
-        let id = this.props.match.params.id;
-        axios.get('http://localhost:3100/' + id + '/reviews')
-        .then(res=>{
-            console.log("RES ",this.props)
-            this.setState({
-                details:res.data.data
-            })
-        })
-    }
-
-    componentDidUpdate(){
-        this.handleDetails
-    }
-
     renderFitnessLocations = () =>{
         let {locations} = this.state;
         return(
@@ -47,32 +30,12 @@ class Fitness extends Component{
         )
     }
 
-    renderFitnessInfo = ({match}) =>{
-        let id = match.params.id
-        axios.get('http://localhost:3100/locations/' + id)
-        .then(res=>{
-            // console.log("RES ",res.data.data[0])
-            this.setState({
-                location:res.data.data[0]
-            })
-        })
-
-        let {location, details} = this.state;
-        return(
-            <FitnessInfo
-                fitnessLocation={location}
-                reviews={this.handleDetails}
-                details={details}
-            />
-        )
-    }
-
     render(){
         return(
             <div>
                 <Switch>
-                    <Route exact path = "/fitness" render = {this.renderFitnessLocations} />
-                    <Route path = "/fitness/:id" render = {this.renderFitnessInfo} />
+                    <Route exact path = "/locations" render = {this.renderFitnessLocations} />
+                    <Route path = "/locations/:id" component = {FitnessInfo} />
                 </Switch>
             </div>
         )
