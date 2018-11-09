@@ -15,7 +15,6 @@ class FitnessInfo extends Component{
             this.setState({
                 location:res.data.data[0]
             })
-            // console.log(res)
         })
     }
 

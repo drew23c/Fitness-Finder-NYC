@@ -13,17 +13,34 @@ getAPI = (url) =>{
         let businesses = res.data.businesses
 
         let arr = [];
-        for(let j = 0; j < businesses.length; j ++){
-            let yelp_id = businesses[j].id;
-            let name = businesses[j].name;
+
+        for(let i in businesses){
+            let yelp_id = businesses[i].id;
+            let name = businesses[i].name;
+            let alias = businesses[i].alias;
+            let img_url = businesses[i].image_url;
+            let url = businesses[i].url;
+            let rating = businesses[i].rating;
+            let latitude = businesses[i].coordinates.latitude;
+            let longitude = businesses[i].coordinates.longitude;
+            let address1 = businesses[i].location.display_address[0]
+            let address2 = businesses[i].location.display_address[1]
+            let address3 = businesses[i].location.display_address[2]
+            let phone = businesses[i].display_phone;
+
             let gym_info = {
                 yelp_id,
                 name
             }
             arr.push(gym_info)
-        }
 
-        for(let k = 0; k < 4; k++){
+            db.any('INSERT INTO locations (yelp_id, name, alias, img_url, url, rating, latitude, longitude, address1, address2, address3, display_phone) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)',
+            [yelp_id, name, alias, img_url, url, rating, latitude, longitude, address1, address2, address3, phone])
+            .then(()=>{
+            })
+        }    
+
+        for(let k = 0; k < 5; k++){
             axios.get('https://api.yelp.com/v3/businesses/' + arr[k].yelp_id + '/reviews', options)
             .then(res=>{
                 // console.log(res.data.reviews)
@@ -53,26 +70,6 @@ getAPI = (url) =>{
                 console.log(err)
             })
         }
-
-        for(let i in businesses){
-            let yelp_id = businesses[i].id;
-            let name = businesses[i].name;
-            let alias = businesses[i].alias;
-            let img_url = businesses[i].image_url;
-            let url = businesses[i].url;
-            let rating = businesses[i].rating;
-            let latitude = businesses[i].coordinates.latitude;
-            let longitude = businesses[i].coordinates.longitude;
-            let address1 = businesses[i].location.display_address[0]
-            let address2 = businesses[i].location.display_address[1]
-            let address3 = businesses[i].location.display_address[2]
-            let phone = businesses[i].display_phone;
-
-            db.any('INSERT INTO locations (yelp_id, name, alias, img_url, url, rating, latitude, longitude, address1, address2, address3, display_phone) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)',
-            [yelp_id, name, alias, img_url, url, rating, latitude, longitude, address1, address2, address3, phone])
-            .then(()=>{
-            })
-        }    
     })
 }
 
