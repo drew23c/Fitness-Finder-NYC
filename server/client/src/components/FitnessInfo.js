@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 
 class FitnessInfo extends Component{
     constructor(){
@@ -28,6 +29,7 @@ class FitnessInfo extends Component{
                 {location.address2}<br/>
                 {location.address3}</h3>
                 <p>{location.display_phone}</p>
+                <Link to={"/locations"}>Back</Link>
             </div>
         )
     }

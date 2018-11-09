@@ -7,8 +7,8 @@ const options = {
       authorization: 'Bearer ' + yelp.key },
 }
 
-getAPI = (url) =>{
-    axios.get(url, options)
+getAPI = async (url) =>{
+    let results = await axios.get(url, options)
     .then(res=>{
         let businesses = res.data.businesses
 
@@ -71,6 +71,7 @@ getAPI = (url) =>{
             })
         }
     })
+    return results;
 }
 
 
@@ -147,30 +148,10 @@ selectFitnessLocation = async (req, res, next) =>{
     })
     return singleLocation;
 }
-
-getDetails = async (req, res, next) =>{
-    let id = req.params.id;
-    let details = await axios.get('https://api.yelp.com/v3/businesses/' + id, options)
-    .then(data=>{
-        res.status(200).json({
-            status: 'success',
-            data: data.data,
-            message: 'fitness details are loaded'
-        })
-    })
-    .catch(err=>{
-        res.status(500).json({
-            status: 'failed',
-            message: err
-        })
-    })
-    return details;
-}
 getAPI('https://api.yelp.com/v3/businesses/search?location=nyc&categories=fitness');
 module.exports = {
     allFitnessLocations,
     selectFitnessLocation,
     getAllReviews,
-    getReview,
-    getDetails
+    getReview
 }
