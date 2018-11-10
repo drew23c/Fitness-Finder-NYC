@@ -8,7 +8,8 @@ class Fitness extends Component{
     constructor(){
         super()
         this.state={
-            locations:[]
+            locations:[],
+            search:''
         }
     }
 
@@ -21,11 +22,19 @@ class Fitness extends Component{
         })
     }
 
+    handleInput = e =>{
+        this.setState({
+            [e.target.name]:e.target.value
+        })
+        console.log(e.target.value);
+    }
     renderFitnessLocations = () =>{
-        let {locations} = this.state;
+        let {locations, search} = this.state;
         return(
             <FitnessLocations
                 locations={locations}
+                input={this.handleInput}
+                search={search}
             />
         )
     }

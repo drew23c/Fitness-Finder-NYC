@@ -148,7 +148,7 @@ selectFitnessLocation = async (req, res, next) =>{
     })
     return singleLocation;
 }
-getAPI('https://api.yelp.com/v3/businesses/search?location=nyc&categories=fitness');
+getAPI('https://api.yelp.com/v3/businesses/search?location=nyc&categories=martialarts');
 module.exports = {
     allFitnessLocations,
     selectFitnessLocation,
