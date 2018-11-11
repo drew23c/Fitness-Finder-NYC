@@ -9,16 +9,19 @@ class Fitness extends Component{
         super()
         this.state={
             locations:[],
-            search:''
+            search:'',
+            result:[]
         }
     }
 
     componentDidMount(){
+        let {locations} = this.state;
         axios.get('http://localhost:3100/locations')
         .then(res=>{
             this.setState({
-                locations: res.data.data
-            })
+                locations: res.data.data,
+                result:locations.indexOf(res.data.data)
+            }) 
         })
     }
 
@@ -29,12 +32,13 @@ class Fitness extends Component{
         console.log(e.target.value);
     }
     renderFitnessLocations = () =>{
-        let {locations, search} = this.state;
+        let {locations, search, result} = this.state;
         return(
             <FitnessLocations
                 locations={locations}
                 input={this.handleInput}
                 search={search}
+                result={result}
             />
         )
     }
