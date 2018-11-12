@@ -29,7 +29,6 @@ class Fitness extends Component{
         this.setState({
             search: e.target.value
         })
-        console.log(search)
     }
 
     handleClick = () =>{
@@ -40,7 +39,6 @@ class Fitness extends Component{
                 result:res.data.data,
                 change:true
             })
-            console.log(res.data.data)   
         })
     }
 

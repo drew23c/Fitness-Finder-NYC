@@ -6,7 +6,8 @@ class FitnessInfo extends Component{
     constructor(){
         super()
         this.state={
-            location:[]
+            location:[],
+            change:null
         }
     }
     componentDidMount(){
@@ -14,7 +15,8 @@ class FitnessInfo extends Component{
         axios.get('http://localhost:3100/locations/' + id)
         .then(res=>{
             this.setState({
-                location:res.data.data[0]
+                location:res.data.data[0],
+                change:true
             })
         })
     }
