@@ -149,6 +149,24 @@ selectFitnessLocation = async (req, res, next) =>{
     return singleLocation;
 }
 
+search = (req, res, next) =>{
+    let name = req.query.name;
+    db.any('SELECT * FROM locations WHERE name LIKE $1', [name + '%'])
+    .then(data=>{
+        res.status(200).json({
+            status:'success',
+            data:data,
+            message:'martial arts studio found'
+        })
+    })
+    .catch(err=>{
+        res.status(500).json({
+            status:'failed',
+            message:err
+        })
+    })
+}
+
 getAPI('https://api.yelp.com/v3/businesses/search?location=nyc&limit=30&sort_by=rating&open_now=true&categories=martialarts');
 module.exports = {
     allFitnessLocations,

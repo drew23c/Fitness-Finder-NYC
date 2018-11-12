@@ -10,35 +10,50 @@ class Fitness extends Component{
         this.state={
             locations:[],
             search:'',
-            result:[]
+            result:[],
+            change:null
         }
     }
 
     componentDidMount(){
-        let {locations} = this.state;
         axios.get('http://localhost:3100/locations')
         .then(res=>{
             this.setState({
-                locations: res.data.data,
-                result:locations.indexOf(res.data.data)
+                locations: res.data.data
             }) 
         })
     }
 
-    handleInput = e =>{
+    handleInput = (e) =>{
+        let {search} = this.state;
         this.setState({
-            [e.target.name]:e.target.value
+            search: e.target.value
         })
-        console.log(e.target.value);
+        console.log(search)
     }
+
+    handleClick = () =>{
+        let {search} = this.state;
+        axios.get('http://localhost:3100/search/?name=' + search)
+        .then(res=>{
+            this.setState({
+                result:res.data.data,
+                change:true
+            })
+            console.log(res.data.data)   
+        })
+    }
+
     renderFitnessLocations = () =>{
-        let {locations, search, result} = this.state;
+        let {locations, search, result, change} = this.state;
         return(
             <FitnessLocations
                 locations={locations}
                 input={this.handleInput}
+                click={this.handleClick}
                 search={search}
                 result={result}
+                change={change}
             />
         )
     }
