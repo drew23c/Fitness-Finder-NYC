@@ -25,21 +25,22 @@ class Fitness extends Component{
     }
 
     handleInput = (e) =>{
-        let {search} = this.state;
         this.setState({
             search: e.target.value
         })
     }
 
-    handleClick = () =>{
-        let {search} = this.state;
-        axios.get('http://localhost:3100/search/?name=' + search)
-        .then(res=>{
-            this.setState({
-                result:res.data.data,
-                change:true
+    componentWillUpdate(){
+        this.handleClick = () =>{
+            let {search} = this.state;
+            axios.get('http://localhost:3100/search/?name=' + search)
+            .then(res=>{
+                this.setState({
+                    result:res.data.data,
+                    change:true
+                })
             })
-        })
+        }
     }
 
     renderFitnessLocations = () =>{
