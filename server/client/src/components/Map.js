@@ -1,10 +1,28 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import gKey from '../secret/google';
+import axios from 'axios';
+import {Link} from 'react-router-dom';
  
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
  
 class SimpleMap extends Component {
+  constructor(){
+      super();
+      this.state={
+        pins:[]
+      }
+  }
+
+  componentDidMount(){
+      axios.get('http://localhost:3100/locations')
+      .then(res=>{
+          this.setState({
+            pins:res.data.data
+          })
+      })
+  }
+
   static defaultProps = {
     center: {
       lat: 40.69,
@@ -12,6 +30,7 @@ class SimpleMap extends Component {
     },
     zoom: 11
   };
+
  
   render() {
     return (
@@ -22,11 +41,11 @@ class SimpleMap extends Component {
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
         >
-          <AnyReactComponent
-            lat={40.6961786}
-            lng={-73.9791299}
-            text={'Center'}
-          />
+          {this.state.pins.map(p=><AnyReactComponent
+            lat={p.latitude}
+            lng={p.longitude}
+            text={<h3><b><Link to={`/locations/${p.yelp_id}`}>{p.name}</Link></b></h3>}
+          />)}
         </GoogleMapReact>
       </div>
     );
