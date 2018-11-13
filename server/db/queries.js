@@ -149,9 +149,9 @@ selectFitnessLocation = async (req, res, next) =>{
     return singleLocation;
 }
 
-search = (req, res, next) =>{
+search = async (req, res, next) =>{
     let name = req.query.name;
-    db.any('SELECT * FROM locations WHERE name LIKE $1', [name + '%'])
+    let searchResult = await db.any('SELECT * FROM locations WHERE name LIKE $1', [name + '%'])
     .then(data=>{
         res.status(200).json({
             status:'success',
@@ -165,6 +165,7 @@ search = (req, res, next) =>{
             message:err
         })
     })
+    return searchResult;
 }
 
 getAPI('https://api.yelp.com/v3/businesses/search?location=nyc&limit=30&sort_by=rating&open_now=true&categories=martialarts');
