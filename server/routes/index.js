@@ -12,4 +12,5 @@ router.get('/reviews', db.getAllReviews);
 router.get('/reviews/:id', db.getReview);
 router.get('/locations/:id', db.selectFitnessLocation);
 router.get('/search', db.search);
+router.post('/post', db.posts);
 module.exports = router;

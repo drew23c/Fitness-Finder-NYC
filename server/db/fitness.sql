@@ -23,7 +23,7 @@ CREATE TABLE locations(
 CREATE TABLE reviews(
     id SERIAL PRIMARY KEY,
     yelp_id VARCHAR,
-    name VARCHAR,
+    name VARCHAR UNIQUE,
     review_id VARCHAR,
     url VARCHAR,
     text VARCHAR,
@@ -33,4 +33,11 @@ CREATE TABLE reviews(
     profile_url VARCHAR,
     image_url VARCHAR,
     user_name VARCHAR
+);
+
+CREATE TABLE post(
+    id SERIAL PRIMARY KEY,
+    gym_name VARCHAR REFERENCES reviews(name),
+    rating INTEGER,
+    text VARCHAR
 );

@@ -7,7 +7,7 @@ class FitnessInfo extends Component{
         super()
         this.state={
             location:[],
-            change:null
+            change:false
         }
     }
     componentDidMount(){

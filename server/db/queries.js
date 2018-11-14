@@ -168,11 +168,27 @@ search = async (req, res, next) =>{
     return searchResult;
 }
 
+posts = (req, res, next) =>{
+    let rating = req.body.rating;
+    let text = req.body.text;
+    db.any('INSERT INTO post (rating, text) VALUES(${rating}, ${text})', {rating:rating, text:text})
+    .then((data)=>{
+        res.json({data})
+    })
+    .catch(err=>{
+        res.status(500).json({
+            status:'failed',
+            message:err
+        })
+    })
+}
+
 getAPI('https://api.yelp.com/v3/businesses/search?location=nyc&limit=30&sort_by=rating&open_now=true&categories=martialarts');
 module.exports = {
     allFitnessLocations,
     selectFitnessLocation,
     getAllReviews,
     getReview,
-    search
+    search,
+    posts
 }
