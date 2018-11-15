@@ -23,11 +23,10 @@ class SingleReview extends Component{
         let {singleReview} = this.state;
         return(
             <div className="singleReview">
-                <h2>{singleReview.user_name}</h2>
+                <a href={singleReview.profile_url} target="_blank"><h2>{singleReview.user_name}</h2></a>
                 <h2>{singleReview.name}</h2>
                 <p>{singleReview.text}</p>
                 <p>{singleReview.time_created}</p>
-                <a href={singleReview.profile_url} target="_blank">Profile</a><br/><br/>
                 <Link to={"/reviews"}>Back</Link>
             </div>
         )

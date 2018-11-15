@@ -63,7 +63,7 @@ class FitnessInfo extends Component{
             <div>
                 <h1>{location.name}</h1>
                 <img src={location.img_url} />
-                <Link to={`/map`}><h3>{location.address1}<br/>
+                <Link to={`/`}><h3>{location.address1}<br/>
                 {location.address2}<br/>
                 {location.address3}</h3></Link>
                 <p>{location.display_phone}</p><br/>

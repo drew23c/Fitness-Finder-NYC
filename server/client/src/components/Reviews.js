@@ -17,7 +17,6 @@ class Reviews extends Component{
             this.setState({
                 reviews: res.data.data
             })
-            console.log(res.data.data)
         })
     }
 
