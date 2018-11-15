@@ -36,8 +36,7 @@ CREATE TABLE reviews(
 );
 
 CREATE TABLE post(
-    id SERIAL PRIMARY KEY,
-    yelp VARCHAR REFERENCES locations(yelp_id),
+    id SERIAL,
     rating FLOAT,
     text VARCHAR
 );
