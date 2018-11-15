@@ -40,7 +40,8 @@ class FitnessInfo extends Component{
     }
 
     handleSubmit = (e) =>{
-        e.preventDefault()
+        e.preventDefault();
+        e.target.reset();
         let {rating, text, yelp} = this.state
         axios.post('http://localhost:3100/post', {
             yelp:yelp,
@@ -64,7 +65,7 @@ class FitnessInfo extends Component{
                 {location.address3}</h3></Link>
                 <p>{location.display_phone}</p><br/>
                 <h3>Review</h3>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit.bind(this)}>
                     <select onChange={this.handleChange}>
                         {this.rate.map(r=><option value={r}>{r}</option>)}
                     </select><br/>
