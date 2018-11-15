@@ -171,7 +171,8 @@ search = async (req, res, next) =>{
 posts = (req, res, next) =>{
     let rating = req.body.rating;
     let text = req.body.text;
-    db.any('INSERT INTO post (rating, text) VALUES(${rating}, ${text})', {rating:rating, text:text})
+    let yelp = req.body.id
+    db.any('INSERT INTO post (yelp, rating, text) VALUES(${yelp}, ${rating}, ${text})', {yelp: yelp, rating:rating, text:text})
     .then((data)=>{
         res.json({data})
     })

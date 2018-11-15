@@ -5,9 +5,13 @@ import {Link} from 'react-router-dom';
 class FitnessInfo extends Component{
     constructor(){
         super()
+        this.rate = ['',1,2,3,4,5]
         this.state={
             location:[],
-            change:false
+            change:false,
+            text:'',
+            yelp:'',
+            rating:''
         }
     }
     componentDidMount(){
@@ -21,6 +25,34 @@ class FitnessInfo extends Component{
         })
     }
 
+    handleInput = (e) =>{
+        this.setState({
+            [e.target.name]:e.target.value
+        })
+    }
+
+    handleChange = (e) =>{
+        let {rating} = this.state;
+        this.setState({
+            rating:e.target.value
+        })
+        console.log(rating)
+    }
+
+    handleSubmit = (e) =>{
+        e.preventDefault()
+        let {rating, text, yelp} = this.state
+        axios.post('http://localhost:3100/post', {
+            yelp:yelp,
+            rating:rating,
+            text:text
+        })
+        .then(res=>{
+            console.log(res)
+            console.log(res.data)
+        })
+    }
+
     render(){
         let {location} = this.state;
         return(
@@ -30,8 +62,16 @@ class FitnessInfo extends Component{
                 <Link to={`/map`}><h3>{location.address1}<br/>
                 {location.address2}<br/>
                 {location.address3}</h3></Link>
-                <p>{location.display_phone}</p>
-                <a href={location.url} target="_blank">More info</a><br/>
+                <p>{location.display_phone}</p><br/>
+                <h3>Review</h3>
+                <form onSubmit={this.handleSubmit}>
+                    <select onChange={this.handleChange}>
+                        {this.rate.map(r=><option value={r}>{r}</option>)}
+                    </select><br/>
+                    <textarea name="text" cols="60" rows="10" onInput={this.handleInput}></textarea><br/>
+                    <button>Submit</button>
+                </form>
+                <br/><a href={location.url} target="_blank">More info</a><br/>
                 <Link to={"/locations"}>Back</Link>
             </div>
         )
