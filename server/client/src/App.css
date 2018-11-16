@@ -8,6 +8,7 @@
 
 a{
   color:#41d894;
+  text-decoration: none;
 }
 
 .App-logo {
@@ -37,4 +38,12 @@ a{
   to {
     transform: rotate(360deg);
   }
+}
+
+.navbar{
+  margin-bottom:0;
+}
+.container{
+  padding:0;
+  margin:0;
 }
