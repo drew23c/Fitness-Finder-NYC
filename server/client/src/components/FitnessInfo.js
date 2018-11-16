@@ -49,7 +49,7 @@ class FitnessInfo extends Component{
             rating:rating,
             text:text
         })
-        .then(res=>{
+        .then(()=>{
             this.setState({
                 r:this.r.push(review),
                 newReview: [...this.r]

@@ -1,5 +1,13 @@
+@import"https://fonts.googleapis.com/css?family=Righteous";
 .App {
   text-align: center;
+  font-family: 'Righteous', cursive;
+  background-color:#960616;
+  color:#41d894;  
+}
+
+a{
+  color:#41d894;
 }
 
 .App-logo {

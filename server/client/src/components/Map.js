@@ -3,6 +3,7 @@ import GoogleMapReact from 'google-map-react';
 import gKey from '../secret/google';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
+import './styles/map.css';
  
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
  
@@ -35,7 +36,7 @@ class SimpleMap extends Component {
   render() {
     return (
       // Important! Always set the container height explicitly
-      <div style={{ height: '50vh', width: '100%' }}>
+      <div className="map" style={{ height: '50vh', width: '100%' }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: gKey.key }}
           defaultCenter={this.props.center}
