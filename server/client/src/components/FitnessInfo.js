@@ -14,7 +14,8 @@ class FitnessInfo extends Component{
             change:false,
             text:'',
             rating:'',
-            newReview:[...this.r]
+            newReview:[...this.r],
+            date:`${new Date()}`
         }
     }
     componentDidMount(){
@@ -35,7 +36,6 @@ class FitnessInfo extends Component{
     }
 
     handleChange = (e) =>{
-        let {rating} = this.state;
         this.setState({
             rating:e.target.value
         })
@@ -44,11 +44,12 @@ class FitnessInfo extends Component{
     handleSubmit = (e) =>{
         e.preventDefault();
         e.target.reset();
-        let {rating, text} = this.state
-        let review={rating, text};
+        let {rating, text, date} = this.state
+        let review={rating, text, date};
         axios.post('http://localhost:3100/post', {
             rating:rating,
-            text:text
+            text:text,
+            date:date
         })
         .then(()=>{
             this.setState({
@@ -56,6 +57,7 @@ class FitnessInfo extends Component{
                 newReview: [...this.r]
             })
         })
+        console.log(review)
     }
 
     render(){
@@ -68,8 +70,12 @@ class FitnessInfo extends Component{
                     <Link to={`/`}><h3>{location.address1}<br/>
                     {location.address2}<br/>
                     {location.address3}</h3></Link>
-                    <p>{location.display_phone}</p><br/>
-                    <h3>Review</h3>
+                    <p>{location.display_phone}</p>
+                    <br/><a href={location.url} target="_blank">More info</a><br/>
+                    <Link to={"/locations"}>Back</Link>
+                </div>
+                <div className="fitness-info-form">
+                    <h3>Reviews</h3>
                     <form onSubmit={this.handleSubmit.bind(this)} className="signle-location-form">
                         <FormGroup controlId="formControlsSelect">
                             <ControlLabel>Rate</ControlLabel><br/>
@@ -85,13 +91,11 @@ class FitnessInfo extends Component{
 
                         <Button type="sumbit">Submit</Button>
                     </form>
-                    <br/><a href={location.url} target="_blank">More info</a><br/>
-                    <Link to={"/locations"}>Back</Link>
-                </div>
-                <div className="list-of-reviews">
-                    <ul>
-                        {newReview.map(n =><li>{n.rating} <br/> {n.text}</li>)}
-                    </ul>
+                    <div className="list-of-reviews">
+                        <ul>
+                            {newReview.map(n =><li>{n.date} <br/> {n.rating} <br/> {n.text}</li>)}
+                        </ul>
+                    </div>
                 </div>
             </div>
         )

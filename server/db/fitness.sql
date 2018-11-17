@@ -38,5 +38,6 @@ CREATE TABLE reviews(
 CREATE TABLE post(
     id SERIAL,
     rating FLOAT,
-    text VARCHAR
+    text VARCHAR,
+    date TIMESTAMPTZ
 );

@@ -171,7 +171,8 @@ search = async (req, res, next) =>{
 posts = (req, res, next) =>{
     let rating = req.body.rating;
     let text = req.body.text;
-    db.any('INSERT INTO post (rating, text) VALUES(${rating}, ${text})', {rating:rating, text:text})
+    let date = new Date();
+    db.any('INSERT INTO post (rating, text, date) VALUES(${rating}, ${text}, ${date})', {rating:rating, text:text, date:date})
     .then((data)=>{
         res.json({data})
     })
