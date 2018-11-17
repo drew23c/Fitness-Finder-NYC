@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
+import {FormGroup, ControlLabel, FormControl, Button} from 'react-bootstrap';
+import './styles/fitnessInfo.css';
 
 class FitnessInfo extends Component{
     constructor(){
         super()
-        this.rate = ['',1,2,3,4,5]
+        this.rate = ['select',1,2,3,4,5]
         this.r = []
         this.state={
             location:[],
@@ -37,7 +39,6 @@ class FitnessInfo extends Component{
         this.setState({
             rating:e.target.value
         })
-        console.log(rating)
     }
 
     handleSubmit = (e) =>{
@@ -60,26 +61,38 @@ class FitnessInfo extends Component{
     render(){
         let {location, newReview} = this.state;
         return(
-            <div>
-                <h1>{location.name}</h1>
-                <img src={location.img_url} />
-                <Link to={`/`}><h3>{location.address1}<br/>
-                {location.address2}<br/>
-                {location.address3}</h3></Link>
-                <p>{location.display_phone}</p><br/>
-                <h3>Review</h3>
-                <form onSubmit={this.handleSubmit.bind(this)}>
-                    <select onChange={this.handleChange} required>
-                        {this.rate.map(r=><option value={r}>{r}</option>)}
-                    </select><br/>
-                    <textarea name="text" cols="60" rows="10" onInput={this.handleInput} required></textarea><br/>
-                    <button>Submit</button>
-                </form>
-                <ul className="list-of-reviews">
-                    {newReview.map(n =><li>{n.rating} | {n.text}</li>)}
-                </ul>
-                <br/><a href={location.url} target="_blank">More info</a><br/>
-                <Link to={"/locations"}>Back</Link>
+            <div className="fitness-info">
+                <div className="single-location">
+                    <h1>{location.name}</h1>
+                    <img src={location.img_url} />
+                    <Link to={`/`}><h3>{location.address1}<br/>
+                    {location.address2}<br/>
+                    {location.address3}</h3></Link>
+                    <p>{location.display_phone}</p><br/>
+                    <h3>Review</h3>
+                    <form onSubmit={this.handleSubmit.bind(this)} className="signle-location-form">
+                        <FormGroup controlId="formControlsSelect">
+                            <ControlLabel>Rate</ControlLabel><br/>
+                            <FormControl componentClass="select" onChange={this.handleChange}>
+                            {this.rate.map(r=><option value={r}>{r}</option>)}
+                            </FormControl>
+                        </FormGroup>
+
+                        <FormGroup controlId="formControlsTextarea">
+                            <ControlLabel>Review</ControlLabel><br/>
+                            <FormControl onInput={this.handleInput} componentClass="textarea" name="text" placeholder="What do you think?" />
+                        </FormGroup>
+
+                        <Button type="sumbit">Submit</Button>
+                    </form>
+                    <br/><a href={location.url} target="_blank">More info</a><br/>
+                    <Link to={"/locations"}>Back</Link>
+                </div>
+                <div className="list-of-reviews">
+                    <ul>
+                        {newReview.map(n =><li>{n.rating} <br/> {n.text}</li>)}
+                    </ul>
+                </div>
             </div>
         )
     }

@@ -1,0 +1,7 @@
+.form-control{
+    width:20%;
+    display:inline-block;
+}
+.list-of-reviews li{
+    list-style-type:none;
+}

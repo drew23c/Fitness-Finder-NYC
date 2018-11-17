@@ -3,7 +3,8 @@
   text-align: center;
   font-family: 'Righteous', cursive;
   background-color:#960616;
-  color:#41d894;  
+  color:#41d894; 
+  height:100vmax; 
 }
 
 a{

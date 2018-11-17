@@ -1,13 +1,21 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import {FormControl, Button} from 'react-bootstrap';
+import './styles/fitnessLocations.css';
 
 const FitnessLocations = ({locations, input, search, result, click, change}) =>{
     return(
-        <div className="fitnessLocation">
+        <div className="fitness-locations">
             <h1>Fitness Locations</h1>
             <div className="search">
-            <input name={search} onInput={input} placeholder="Search here" />
-                <button onClick={click}>Search</button>
+                <FormControl
+                className="search-input"
+                type="text"
+                placeholder="Search here"
+                name={search}
+                onInput={input}
+                />
+                <Button onClick={click}>Search</Button>
             {
                 change === true ? 
                 <div>
