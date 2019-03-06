@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
+import './styles/allReviews.css'
 
 const AllReviews = ({reviews}) =>{
     return(
