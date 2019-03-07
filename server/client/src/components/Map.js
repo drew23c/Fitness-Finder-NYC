@@ -4,6 +4,7 @@ import gKey from '../secret/google';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 import './styles/map.css';
+import pin from '../components/photos/pin.png';
  
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
  
@@ -45,7 +46,7 @@ class SimpleMap extends Component {
           {this.state.pins.map(p=><AnyReactComponent
             lat={p.latitude}
             lng={p.longitude}
-            text={<h3><b><Link to={`/locations/${p.yelp_id}`}>{p.name}</Link></b></h3>}
+            text={<h3><b><Link to={`/locations/${p.yelp_id}`}><img className="pin" src={pin} /></Link></b></h3>}
           />)}
         </GoogleMapReact>
       </div>
