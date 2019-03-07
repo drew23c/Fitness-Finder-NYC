@@ -41,7 +41,7 @@ getAPI = async (url) =>{
             })
         }    
         //for loop to select data from the reviews object in the yelp API
-        for(let k = 0; k < 5; k++){
+        for(let k = 0; k < 3; k++){
             axios.get('https://api.yelp.com/v3/businesses/' + arr[k].yelp_id + '/reviews', options)
             .then(res=>{
                 let reviews = res.data.reviews;
