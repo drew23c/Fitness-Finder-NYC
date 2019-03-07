@@ -1,4 +1,4 @@
 const pg = require('pg-promise')({});
-const connectionString = 'postgres://localhost/fitness';
+const connectionString = process.env.DATABASE_URL;
 const db = pg(connectionString)
 module.exports = db;

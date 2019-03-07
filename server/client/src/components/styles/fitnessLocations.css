@@ -6,6 +6,12 @@
     flex-direction: row;
     flex-wrap:wrap;
 }
+.fitness-locations-true{
+    display:flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    height:100vh;
+}
 .fitness-locations .search-input{
     width:20%;
 }

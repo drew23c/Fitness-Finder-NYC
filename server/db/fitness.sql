@@ -1,8 +1,3 @@
-DROP DATABASE IF EXISTS fitness;
-CREATE DATABASE fitness;
-
-\c fitness;
-
 CREATE TABLE locations(
     id SERIAL PRIMARY KEY,
     yelp_id VARCHAR UNIQUE,

@@ -18,7 +18,7 @@ const FitnessLocations = ({locations, input, search, result, click, change}) =>{
                 <Button onClick={click}>Search</Button>
             {
                 change === true ? 
-                <div className="fitness-locations-list">
+                <div className="fitness-locations-true">
                     {result.map(r =><Link to={`/locations/${r.yelp_id}`} key={r.id}><div>{r.name}<br/>
                     <img src={r.img_url} height="300px" width="300px" /><br/>
                     </div></Link>)}<br/>
