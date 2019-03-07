@@ -1,8 +1,8 @@
 .reviews{
-    height:100vh;
+    height:100%;
 }
 .reviews-list{
-    margin-left:20%;
+    /* margin-left:20%; */
 }
 .reviews-list{
     display:flex;
