@@ -1,5 +1,5 @@
 .fitness-info{
-    height:140vh;
+    height:120vh;
 }
 .form-control{
     width:100%;
@@ -16,6 +16,7 @@
 }
 .single-location img{
     width:50vw;
+    height:80vh;
 }
 .fitness-info-form form{
     position:relative;
