@@ -45,6 +45,10 @@ View reviews from users:
 * [Yelp API](https://www.yelp.com/developers)
 * [Google Map API](https://developers.google.com/maps/documentation/)
 
+## Future Feature:
+
+* User Authentication
+
 ## Installation
 
 1. Clone or download this repository.
