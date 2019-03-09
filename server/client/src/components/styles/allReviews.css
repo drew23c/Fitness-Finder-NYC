@@ -2,9 +2,6 @@
     height:100vh;
 }
 .reviews-list{
-    /* margin-left:20%; */
-}
-.reviews-list{
     display:flex;
     flex-direction: row;
     flex-wrap:wrap;
